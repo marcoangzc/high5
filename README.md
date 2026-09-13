@@ -1,4 +1,4 @@
-# **Travely by Team High5**
+# **Travely by Team high5**
 
 **Team:** Ang Zi Chen, Chong Wen Kai, Len Chun Hoe, Ng Yit Kai
 
@@ -309,5 +309,5 @@ With 10 days we expect to reach some of these, but they are sequenced last on pu
 
 ---
 
-*Team High5 — Ang Zi Chen · Chong Wen Kai · Len Chun Hoe · Ng Yit Kai*  
+*Team high5 — Ang Zi Chen · Chong Wen Kai · Len Chun Hoe · Ng Yit Kai*  
 *Lifestyle Track: Planning an Escape.*
