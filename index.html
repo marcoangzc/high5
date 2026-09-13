@@ -223,6 +223,45 @@
     .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .full { grid-column: 1 / -1; }
 
+    /* Budget Range Slider */
+    .budget-range { display: flex; align-items: center; gap: 12px; }
+    .budget-range-edge { font-size: 13px; font-weight: 600; color: var(--muted); flex-shrink: 0; }
+    .budget-range input[type="range"] {
+      flex: 1; min-height: 44px; height: 44px; padding: 0; background: transparent;
+      -webkit-appearance: none; appearance: none; cursor: pointer;
+    }
+    .budget-range input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px; border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary) calc(var(--fill, 50%)), var(--border) calc(var(--fill, 50%)), var(--border) 100%);
+    }
+    .budget-range input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 22px; height: 22px; margin-top: -8px;
+      border-radius: 50%; background: var(--card); border: 3px solid var(--primary);
+      box-shadow: 0 1px 3px rgba(18,16,14,.25); cursor: grab;
+    }
+    .budget-range input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; }
+    .budget-range input[type="range"]::-moz-range-track {
+      height: 6px; border-radius: 999px; background: var(--border);
+    }
+    .budget-range input[type="range"]::-moz-range-progress {
+      height: 6px; border-radius: 999px; background: var(--primary);
+    }
+    .budget-range input[type="range"]::-moz-range-thumb {
+      width: 16px; height: 16px; border-radius: 50%; background: var(--card);
+      border: 3px solid var(--primary); box-shadow: 0 1px 3px rgba(18,16,14,.25); cursor: grab;
+    }
+    .budget-range-max {
+      display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+      font-size: 12.5px; font-weight: 600; color: var(--muted);
+    }
+    .budget-range-max input[type="number"] {
+      width: 84px; min-height: 36px; padding: 6px 10px;
+      border: 1.5px solid var(--border-strong); border-radius: var(--radius-sm);
+      font-size: 14px; font-family: inherit; color: var(--text); background: var(--card);
+      outline: none; transition: border-color var(--t), box-shadow var(--t);
+    }
+    .budget-range-max input[type="number"]:focus { border-color: var(--primary); box-shadow: var(--ring); }
+
     /* Results */
     .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 12px; }
     .result-card {
@@ -759,14 +798,16 @@
                   <input type="date" id="end-date" required />
                 </div>
               </div>
-              <div class="form-group">
-                <label for="budget">Budget</label>
-                <select id="budget">
-                  <option value="any">Any budget</option>
-                  <option value="budget">Budget-friendly</option>
-                  <option value="mid" selected>Mid-range</option>
-                  <option value="luxury">Luxury</option>
-                </select>
+              <div class="form-group full">
+                <label for="budget-slider">Budget <span id="budget-value" style="color:var(--primary);font-weight:700">$2,500</span></label>
+                <div class="budget-range">
+                  <span class="budget-range-edge">$0</span>
+                  <input type="range" id="budget-slider" min="0" max="5000" step="10" value="2500" />
+                  <div class="budget-range-max">
+                    <span>Max</span>
+                    <input type="number" id="budget-max" min="1" step="1" value="5000" />
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="style">Travel Style</label>
@@ -1418,6 +1459,25 @@
     /* ═══════════════════════════════════════════════════════════
        3. PLANNER & TRIP STORAGE
        ═══════════════════════════════════════════════════════════ */
+    (function setupBudgetSlider() {
+      const slider = document.getElementById('budget-slider');
+      const maxInput = document.getElementById('budget-max');
+      const valueLabel = document.getElementById('budget-value');
+
+      function render() {
+        const max = Math.max(1, +maxInput.value || 1);
+        if (+slider.value > max) slider.value = max;
+        slider.max = max;
+        const pct = (+slider.value / max) * 100;
+        slider.style.setProperty('--fill', pct + '%');
+        valueLabel.textContent = '$' + Number(slider.value).toLocaleString();
+      }
+
+      slider.addEventListener('input', render);
+      maxInput.addEventListener('input', render);
+      render();
+    })();
+
     document.getElementById('planner-form').addEventListener('submit', e => {
       e.preventDefault();
       const dest = document.getElementById('destinations').value;
