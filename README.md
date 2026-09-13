@@ -4,7 +4,7 @@
 
 **Problem Statement:** Travel Planner (Lifestyle Track: Planning an Escape)
 
-**Video Presentation:** https://youtu.be/4sySMv9PnOY
+**Video Presentation:** https://youtu.be/TuQ5B8tsSB4
 
 **Live Prototype:** https://travely.zichenangmarco.workers.dev/
 
