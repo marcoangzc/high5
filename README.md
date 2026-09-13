@@ -69,8 +69,6 @@ The visible pain is well known: flights, stays, budgets and activities get scatt
 
 ### **2.1 Ideas We Considered**
 
-> ⚠️ **Read this before you submit.** Our process was mostly additive — we layered features on rather than throwing work away. That is honest, but "one idea, unchanged" scores 0–1 out of 7 on this rubric, so below we've documented the two genuine pivots in *framing* that did happen, plus the directions we considered and chose not to build. **Every row here must be something a team member can talk about for thirty seconds if a judge asks.** Sit down together for fifteen minutes before submitting and strike out anything that isn't true for you.
-
 | Idea | Why it was dropped / kept |
 | :---- | :---- |
 | **A. Private Constraint Layer / Anonymous Consensus Engine (Chosen — became the core)** | **Kept.** Started as a small "dietary tag" feature. We realised the real friction in our own group trips was never logistics, it was the friend who stays quiet because they can't afford it or can't eat it. No competitor models this. Promoted from side feature to the spine of the product. |
