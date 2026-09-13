@@ -119,15 +119,11 @@ The visible pain is well known: flights, stays, budgets and activities get scatt
 | 11 Sep 2026 | Janelle Tan | **On UI/UX:** the visual design and overall UX were assessed as solid, but she flagged that Global Tours was not user-friendly as built — a traveller could only scroll the list of open tours, with no way to look for a specific destination or a group that matched them. | Added a search bar to Global Tours, and paired it with filters for visibility, language, diet/faith, culture and gender group, so a solo traveller can go straight to the tours they could actually join instead of reading every card. This is also what let Discovery reuse the same preference schema as the private constraint layer rather than needing its own. |
 | 11 Sep 2026 | Janelle Tan | **On the chatroom and the overall workflow:** rated the chatroom as the strongest part of the concept — not just as a place to talk, but because it manages the plan itself, which she noted matters most when a group rather than an individual is deciding. | We took this as a signal to push the idea further rather than just keep it. Channels moved from "nice to have" into must-ship scope, and we made **Lock Decision write the outcome into the itinerary day**, not only post it to `#food`. That closes the loop she identified: the chat is where the plan is managed, so a decision made there has to become the plan rather than sit in a message nobody scrolls back to. It is now the beat we demo on camera. |
 
-> If you disagreed with any of her feedback, say so here and explain why — you are not penalised for it, and it demonstrates judgement.
-
 ---
 
 ## **3. Design & Prototype**
 
 **UI Prototype:** https://bucolic-meerkat-7cbf90.netlify.app
-
-> Screens captured from the live prototype. Fonts render slightly differently here than in the browser (the capture environment has no access to Google Fonts) — the deployed link above is the reference.
 
 **1 · Auth.** Email/Google sign-in. Deliberately minimal — the product's value starts at trip creation, so onboarding gets out of the way.
 
@@ -214,7 +210,7 @@ Lock Decision doesn't just end a vote; it posts the outcome to the right channel
 
 ## **5. Technical Architecture & Feasibility**
 
-> Our team is comfortable across modern JS frameworks, so the stack below was chosen for fit rather than familiarity — React because the prototype ports cleanly, Supabase because it is the only free-tier option that lets us enforce our privacy claim in the database rather than in the UI.
+Our team is comfortable across modern JS frameworks, so the stack below was chosen for fit rather than familiarity, React because the prototype ports cleanly, Supabase because it is the only free-tier option that lets us enforce our privacy claim in the database rather than in the UI.
 
 ### **Tech stack**
 
