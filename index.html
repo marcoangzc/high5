@@ -223,6 +223,61 @@
     .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .full { grid-column: 1 / -1; }
 
+    /* Budget Range Slider (dual thumb, RM 0 – 20,000) */
+    .budget-hint { font-size: 13px; color: var(--muted); margin: -2px 0 4px; }
+    .budget-slider {
+      position: relative; height: 48px; cursor: pointer; touch-action: pan-y;
+    }
+    .budget-track {
+      position: absolute; left: 12px; right: 12px; top: 50%; height: 6px;
+      transform: translateY(-50%); border-radius: 999px; background: var(--border);
+    }
+    .budget-fill {
+      position: absolute; top: 0; bottom: 0; border-radius: 999px; background: var(--primary);
+    }
+    .form-group .budget-slider input[type="range"] {
+      position: absolute; left: 0; top: 0; width: 100%; height: 48px; min-height: 48px;
+      margin: 0; padding: 0; border: none; border-radius: 0; box-shadow: none; outline: none;
+      background: transparent; -webkit-appearance: none; appearance: none; pointer-events: none;
+    }
+    .form-group .budget-slider input[type="range"]:focus { box-shadow: none; outline: none; }
+    .budget-slider input[type="range"]::-webkit-slider-runnable-track { height: 48px; background: transparent; }
+    .budget-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; pointer-events: auto; width: 24px; height: 24px; margin-top: 12px;
+      border-radius: 50%; background: var(--card); border: 3px solid var(--primary);
+      box-shadow: 0 1px 3px rgba(18,16,14,.25); cursor: grab;
+      transition: box-shadow var(--t), transform var(--t);
+    }
+    .budget-slider input[type="range"]::-moz-range-track { height: 48px; background: transparent; }
+    .budget-slider input[type="range"]::-moz-range-thumb {
+      pointer-events: auto; width: 18px; height: 18px; border-radius: 50%; background: var(--card);
+      border: 3px solid var(--primary); box-shadow: 0 1px 3px rgba(18,16,14,.25); cursor: grab;
+      transition: box-shadow var(--t), transform var(--t);
+    }
+    .budget-slider input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+    .budget-slider input[type="range"]::-moz-range-thumb:hover { transform: scale(1.1); }
+    .budget-slider input[type="range"]:active::-webkit-slider-thumb { cursor: grabbing; transform: scale(1.1); }
+    .budget-slider input[type="range"]:active::-moz-range-thumb { cursor: grabbing; transform: scale(1.1); }
+    .budget-slider input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: var(--ring); }
+    .budget-slider input[type="range"]:focus-visible::-moz-range-thumb { box-shadow: var(--ring); }
+
+    .budget-fields { display: flex; justify-content: space-between; gap: 16px; margin-top: 4px; }
+    .budget-field { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+    .form-group .budget-field label { margin: 0; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+    .budget-pill {
+      display: flex; align-items: center; gap: 5px; min-height: 44px; width: 150px; max-width: 100%;
+      padding: 0 18px; border: 1.5px solid var(--border-strong); border-radius: 999px;
+      background: var(--card); font-size: 15px; font-weight: 500; color: var(--text); cursor: text;
+      transition: border-color var(--t), box-shadow var(--t);
+    }
+    .budget-pill:focus-within { border-color: var(--primary); box-shadow: var(--ring); }
+    .form-group .budget-pill input {
+      flex: 1; width: 100%; min-width: 0; min-height: 0; padding: 0; border: none; border-radius: 0;
+      background: transparent; box-shadow: none; outline: none;
+      font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums;
+    }
+    .form-group .budget-pill input:focus { box-shadow: none; outline: none; }
+
     /* Results */
     .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 12px; }
     .result-card {
@@ -759,14 +814,24 @@
                   <input type="date" id="end-date" required />
                 </div>
               </div>
-              <div class="form-group">
-                <label for="budget">Budget</label>
-                <select id="budget">
-                  <option value="any">Any budget</option>
-                  <option value="budget">Budget-friendly</option>
-                  <option value="mid" selected>Mid-range</option>
-                  <option value="luxury">Luxury</option>
-                </select>
+              <div class="form-group full">
+                <label id="budget-label">Budget <span id="budget-value" style="color:var(--primary);font-weight:700">RM 1,000 – RM 5,000</span></label>
+                <p class="budget-hint">Total trip price, includes all fees</p>
+                <div class="budget-slider" id="budget-slider" role="group" aria-labelledby="budget-label">
+                  <div class="budget-track"><div class="budget-fill" id="budget-fill"></div></div>
+                  <input type="range" id="budget-min" min="0" max="20000" step="50" value="1000" aria-label="Minimum budget" />
+                  <input type="range" id="budget-max" min="0" max="20000" step="50" value="5000" aria-label="Maximum budget" />
+                </div>
+                <div class="budget-fields">
+                  <div class="budget-field">
+                    <label for="budget-min-input">Minimum</label>
+                    <div class="budget-pill"><span>RM</span><input type="text" id="budget-min-input" inputmode="numeric" autocomplete="off" value="1,000" /></div>
+                  </div>
+                  <div class="budget-field">
+                    <label for="budget-max-input">Maximum</label>
+                    <div class="budget-pill"><span>RM</span><input type="text" id="budget-max-input" inputmode="numeric" autocomplete="off" value="5,000" /></div>
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="style">Travel Style</label>
@@ -1418,6 +1483,87 @@
     /* ═══════════════════════════════════════════════════════════
        3. PLANNER & TRIP STORAGE
        ═══════════════════════════════════════════════════════════ */
+    (function setupBudgetSlider() {
+      const LIMIT = 20000, STEP = 50;
+      const wrap = document.getElementById('budget-slider');
+      const track = wrap.querySelector('.budget-track');
+      const fill = document.getElementById('budget-fill');
+      const minRange = document.getElementById('budget-min');
+      const maxRange = document.getElementById('budget-max');
+      const minText = document.getElementById('budget-min-input');
+      const maxText = document.getElementById('budget-max-input');
+      const valueLabel = document.getElementById('budget-value');
+      let minVal = 1000, maxVal = 5000;
+
+      const fmt = v => v.toLocaleString('en-US') + (v >= LIMIT ? '+' : '');
+      const parse = s => parseInt(String(s).replace(/\D/g, ''), 10);
+
+      function render() {
+        minRange.value = minVal;
+        maxRange.value = maxVal;
+        fill.style.left = (minVal / LIMIT * 100) + '%';
+        fill.style.right = (100 - maxVal / LIMIT * 100) + '%';
+        // When thumbs overlap, keep the one that can still move on top
+        minRange.style.zIndex = minVal > LIMIT / 2 ? 3 : 1;
+        maxRange.style.zIndex = 2;
+        minText.value = fmt(minVal);
+        maxText.value = fmt(maxVal);
+        minRange.setAttribute('aria-valuetext', 'RM ' + fmt(minVal));
+        maxRange.setAttribute('aria-valuetext', 'RM ' + fmt(maxVal));
+        valueLabel.textContent = `RM ${fmt(minVal)} – RM ${fmt(maxVal)}`;
+      }
+
+      minRange.addEventListener('input', () => { minVal = Math.min(+minRange.value, maxVal); render(); });
+      maxRange.addEventListener('input', () => { maxVal = Math.max(+maxRange.value, minVal); render(); });
+
+      // Click or drag anywhere on the track moves the nearest thumb
+      wrap.addEventListener('pointerdown', e => {
+        if (e.target === minRange || e.target === maxRange) return;
+        e.preventDefault();
+        const rect = track.getBoundingClientRect();
+        const valAt = x => Math.round(Math.min(1, Math.max(0, (x - rect.left) / rect.width)) * LIMIT / STEP) * STEP;
+        const v = valAt(e.clientX);
+        const useMin = v <= minVal || (v < maxVal && v - minVal < maxVal - v);
+        const set = x => {
+          const n = valAt(x);
+          if (useMin) minVal = Math.min(n, maxVal); else maxVal = Math.max(n, minVal);
+          render();
+        };
+        set(e.clientX);
+        (useMin ? minRange : maxRange).focus();
+        wrap.setPointerCapture(e.pointerId);
+        const move = ev => set(ev.clientX);
+        const up = () => {
+          wrap.removeEventListener('pointermove', move);
+          wrap.removeEventListener('pointerup', up);
+          wrap.removeEventListener('pointercancel', up);
+        };
+        wrap.addEventListener('pointermove', move);
+        wrap.addEventListener('pointerup', up);
+        wrap.addEventListener('pointercancel', up);
+      });
+
+      // Typed values: commit on blur / Enter, clamped to 0 – 20,000 and min ≤ max
+      function commit(isMin) {
+        const n = parse(isMin ? minText.value : maxText.value);
+        if (!isNaN(n)) {
+          if (isMin) minVal = Math.max(0, Math.min(n, maxVal));
+          else maxVal = Math.min(LIMIT, Math.max(n, minVal));
+        }
+        render();
+      }
+      [[minText, true], [maxText, false]].forEach(([el, isMin]) => {
+        el.addEventListener('focus', () => el.select());
+        el.addEventListener('change', () => commit(isMin));
+        el.addEventListener('keydown', e => {
+          if (e.key === 'Enter') { e.preventDefault(); commit(isMin); el.blur(); }
+        });
+        el.closest('.budget-pill').addEventListener('click', () => el.focus());
+      });
+
+      render();
+    })();
+
     document.getElementById('planner-form').addEventListener('submit', e => {
       e.preventDefault();
       const dest = document.getElementById('destinations').value;
