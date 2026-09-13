@@ -1,10 +1,10 @@
-# **Travely by Team High5**
+<img width="991" height="841" alt="image" src="https://github.com/user-attachments/assets/cf3e3335-8d57-4a11-9728-2ca1082715fe" /># **Travely by Team High5**
 
 **Team:** Ang Zi Chen, Chong Wen Kai, Len Chun Hoe, Ng Yit Kai
 
 **Problem Statement:** Travel Planner (Lifestyle Track: Planning an Escape)
 
-**Video Presentation:** 🔴 [Unlisted YouTube Link]
+**Video Presentation:** https://youtu.be/4sySMv9PnOY
 
 **Live Prototype:** https://travely.zichenangmarco.workers.dev/
 
