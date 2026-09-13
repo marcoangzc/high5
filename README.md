@@ -6,7 +6,7 @@
 
 **Video Presentation:** 🔴 [Unlisted YouTube Link]
 
-**Live Prototype:** https://bucolic-meerkat-7cbf90.netlify.app
+**Live Prototype:** https://travely.zichenangmarco.workers.dev/
 
 ---
 
@@ -123,7 +123,7 @@ The visible pain is well known: flights, stays, budgets and activities get scatt
 
 ## **3. Design & Prototype**
 
-**UI Prototype:** https://bucolic-meerkat-7cbf90.netlify.app
+**UI Prototype:** https://travely.zichenangmarco.workers.dev/
 
 **1 · Auth.** Email/Google sign-in. Deliberately minimal — the product's value starts at trip creation, so onboarding gets out of the way.
 
